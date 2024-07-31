@@ -1,0 +1,59 @@
+.search-container{
+  text-align: center;
+}
+
+.search{
+  margin:30px;
+  width:300px;
+  height:30px;
+}
+
+button{
+  height:30px;
+  width:100px;
+}
+
+.movie-container{
+  display:flex;
+  width:80%;
+}
+.movie-data{
+  display: flex;
+  flex-direction: column;
+  border:1px solid;
+  margin:10px;
+  width:300px;
+  padding:10px;
+}
+.movie-data p,.movie-data h2, .movie-data h3, .movie-data h4 {
+  margin:5px;
+}
+
+.container{
+  padding:50px;
+}
+form{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.input{
+  width:400px;
+  margin-bottom:20px;
+}
+textarea{
+  width:400px;
+}
+
+.like-buttons{
+  display:flex;
+}
+
+.like-btn{
+  width:100px;
+  margin:10px;
+}
+
+.add-btn{
+  margin-left: 100px;
+}
