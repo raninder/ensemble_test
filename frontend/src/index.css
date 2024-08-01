@@ -37,12 +37,9 @@ form{
   flex-direction: column;
   justify-content: center;
 }
-.input{
+.input, textarea{
   width:400px;
   margin-bottom:20px;
-}
-textarea{
-  width:400px;
 }
 
 .group-buttons{
