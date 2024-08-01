@@ -45,15 +45,43 @@ textarea{
   width:400px;
 }
 
-.like-buttons{
+.group-buttons{
   display:flex;
+  justify-content: center;
+  
 }
 
-.like-btn{
+.del-btn{
   width:100px;
+  background-color: black;
+  color:white;
   margin:10px;
 }
+.like-btn{
+  width:50px;
+  margin:10px;
+  border:0 none;
+}
+.like-btn:active, .like-btn:hover{
+  background-color: blueviolet;
+  color:white;
+  transform: translateY(4px);
 
+}
 .add-btn{
   margin-left: 100px;
+}
+
+
+.like-button{
+  background-color: blueviolet;
+  color:white;
+}
+
+.dislike-button{
+  background-color: gray;
+  color:white;
+}
+.span{
+  margin-right:5px;
 }
