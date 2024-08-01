@@ -1,6 +1,8 @@
 import { React, useState, useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { FaRegThumbsUp } from "react-icons/fa";
+import { MdOutlineThumbDown } from "react-icons/md";
 
 
 export default function HomeExpress() {
@@ -9,7 +11,8 @@ export default function HomeExpress() {
     const [inputText, setInputText] = useState("");
     const initLikes = new Array(20).fill(0);
     let [likes, setLikes] = useState(initLikes);
-    let [unlikes, setUnLikes] = useState(initLikes);
+    let [Dislikes, setDislikes] = useState(initLikes);
+    let [active,setActive] = useState('')
  
   
     const navigate = useNavigate();
@@ -40,20 +43,33 @@ export default function HomeExpress() {
     }
 
     const handleLike=(index)=>{
-        let tempLikes = likes.slice(0)
-        tempLikes[index] = tempLikes[index] + 1
-        setLikes(tempLikes)
-      }
+        //if active is empty or like or dislike
+        let tempLikes = likes.slice(0);
+        tempLikes[index] = tempLikes[index] + 1;
+        setLikes(tempLikes);
+        setActive('like')
+        if(active==='dislike'){
+            let tempDislikes = Dislikes.slice(0)
+            tempDislikes[index] = tempDislikes[index] - 1
+            setDislikes(tempDislikes)
+        }
+    }
 
-    const handleUnLike=(index)=>{
-        let tempUnLikes = unlikes.slice(0)
-        tempUnLikes[index] = tempUnLikes[index] + 1
-        setUnLikes(tempUnLikes)
+    const handleDislike=(index)=>{
+            let tempDislikes = Dislikes.slice(0)
+            tempDislikes[index] = tempDislikes[index] + 1
+            setDislikes(tempDislikes)
+            setActive('dislike')
+            if(active=='like'){
+                let tempLikes = likes.slice(0)
+                tempLikes[index] = tempLikes[index] - 1
+                setLikes(tempLikes)
+            }
       }
       const handleDelete=(id)=>{
         console.log("id",id)
         axios
-        .delete(`http://localhost:8000/movies/delete/${id}`) // <-- remove ;
+        .delete(`http://localhost:8000/movies/delete/${id}`) 
         .then((res) => {
             console.log("thanks",res);
             alert('Movie deleted');
@@ -78,7 +94,6 @@ export default function HomeExpress() {
 
                 <button onClick={()=> getData(inputText)}>Search</button>
                 <button className="add-btn" onClick={add}>Add Movie</button>
-                <button className="add-btn" onClick={update}>Update Movie</button>
                 </div>
         
                 <div className="movie-container">
@@ -90,13 +105,15 @@ export default function HomeExpress() {
                                 <p>Plot: {item.description}</p>
                                 <h4>Duration: {item.duration}</h4>
                                 <h4>Rating: {item.rating}</h4>
-                                <button className="like-btn" onClick={() => handleDelete(item.title)}>Delete</button>
-                                <Link to={`/movies/${item.id}`} >
-                                    <button className="like-btn">Update</button>
-                               </Link>
-                                <div className="like-buttons">
-                                    <button className="like-btn" onClick={() => handleLike(index)}>Likes:{likes[index]}</button>
-                                    <button className="like-btn" onClick={() => handleUnLike(index)}>Dislikes:{unlikes[index]}</button>
+                                <div className="group-buttons">
+                                    <button className="del-btn" onClick={() => handleDelete(item.title)}>Delete</button>
+                                    <Link to={`/movies/${item.id}`} >
+                                        <button className="del-btn">Update</button>
+                                </Link>
+                               </div>
+                                <div className="group-buttons">
+                                    <button className="like-btn" onClick={() => handleLike(index)}><FaRegThumbsUp size='18'/>{likes[index]}</button>
+                                    <button className="like-btn" onClick={() => handleDislike(index)}><MdOutlineThumbDown size='20'/>{Dislikes[index]}</button>
                                 </div>
                             </div>
                         ))
